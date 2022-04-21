@@ -6,38 +6,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TakuzuWithSolver
+namespace TakuzuWithSolver.Logic
 {
     public enum State
     {
         Empty = ' ',
-        Zero = '0',        
-        One = '1'        
+        Zero = '0',
+        One = '1'
     }
-    public class Takuzu
+    public class Logic: IGameModel
     {
         public int Dimension { get; private set; }
-        public State[,] Map { get; set; }
-        private State[,] Solution;
+        public State[,] Map { get; private set; }
+        public State[,] Solution { get; private set; }
 
-        public Takuzu(int dim)
+        public Logic(int dim)
         {
             Import(dim);
             Solve();
         }
-        public Takuzu getCopy()
+        public Logic getCopy()
         {
-            return new Takuzu(Dimension) { Map = this.Map };
+            return new Logic(Dimension) { Map = this.Map };
         }
         void Import(int dim)
         {
             Random rnd = new Random();
             string json = File.ReadAllText("takuzuList.json");
-            var takuzus = JsonConvert.DeserializeObject<List<Takuzu>>(json).Where(x => x.Dimension == dim);
-            Takuzu sel =  takuzus.ElementAt(rnd.Next(0, takuzus.Count()));
+            var takuzus = JsonConvert.DeserializeObject<List<Logic>>(json).Where(x => x.Dimension == dim);
+            Logic sel = takuzus.ElementAt(rnd.Next(0, takuzus.Count()));
 
             this.Dimension = sel.Dimension;
-            this.Map = sel.Map;            
+            this.Map = sel.Map;
         }
         void Solve()
         {
@@ -48,7 +48,7 @@ namespace TakuzuWithSolver
         {
             if (IsValidPosition(x, y)) this.Map[x, y] = state;
             else throw new Exception("State can't be set due to unvalid parameters.");
-            
+
         }
         public State GetState(int x, int y)
         {
