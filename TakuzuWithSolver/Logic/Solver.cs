@@ -167,8 +167,8 @@ namespace TakuzuWithSolver
                         state == map[i + 1, j])
                     {
                         State inverse = Invert(state);
-                        CheckUpdate(map, i - 1, j, inverse);
-                        CheckUpdate(map, i + 2, j, inverse);
+                        CheckUpdate(map, i, j - 1, inverse);
+                        CheckUpdate(map, i, j + 2, inverse);
                     }
                 }
             }

@@ -12,6 +12,7 @@
     <None Remove="Images\TileBlue.png" />
     <None Remove="Images\TileEmpty.png" />
     <None Remove="Images\TileGreen.png" />
+    <None Remove="takuzus.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\TileGreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="takuzus.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -10,34 +10,70 @@ namespace TakuzuWithSolver.Logic
 {
     public enum State
     {
-        Empty = ' ',
-        Zero = '0',
-        One = '1'
+        Empty,
+        Zero,
+        One
     }
-    public class Logic: IGameModel
+    public class Takuzu: IGameModel
     {
         public int Dimension { get; private set; }
         public State[,] Map { get; private set; }
         public State[,] Solution { get; private set; }
 
-        public Logic(int dim)
+        public Takuzu(int dim)
         {
-            Import(dim);
+            this.Dimension = dim;
+            this.Map = new State[dim,dim];
+            this.Solution = new State[dim,dim];
+
+
+            ImportFbf(dim);
+            ;
+            //Import(dim);
             Solve();
         }
-        public Logic getCopy()
+
+        private void ImportFbf(int dim)
         {
-            return new Logic(Dimension) { Map = this.Map };
+            Random rnd = new Random();
+            string json = File.ReadAllText("fbf.json");
+            List<char[,]> maps = JsonConvert.DeserializeObject<List<char[,]>>(json);
+            char[,] selected = maps.Where(x => x.GetLength(0) == dim)
+                                   .ElementAt(rnd.Next(0,maps.Count));
+
+            for (int i = 0; i < selected.GetLength(0); i++)
+            {
+                for (int j = 0; j < selected.GetLength(1); j++)
+                {
+                    switch (selected[i, j])
+                    {
+                        case ' ': this.Map[i, j] = State.Empty; 
+                            break;
+                        case '0': this.Map[i, j] = State.Zero; 
+                            break;
+                        case '1': this.Map[i, j] = State.One; 
+                            break;
+                    }
+                }
+            }
+
+        }
+
+        public Takuzu getCopy()
+        {
+            return new Takuzu(Dimension) { Map = this.Map };
         }
         void Import(int dim)
         {
             Random rnd = new Random();
-            string json = File.ReadAllText("takuzuList.json");
-            var takuzus = JsonConvert.DeserializeObject<List<Logic>>(json).Where(x => x.Dimension == dim);
-            Logic sel = takuzus.ElementAt(rnd.Next(0, takuzus.Count()));
+            string json = File.ReadAllText(Directory.GetCurrentDirectory() + "/takuzus.json");
+            var takuzus = JsonConvert.DeserializeObject<List<Takuzu>>(json).Where(x => x.Dimension == dim);
+            Takuzu sel = takuzus.ElementAt(rnd.Next(0, takuzus.Count()));
 
             this.Dimension = sel.Dimension;
             this.Map = sel.Map;
+
+            
         }
         void Solve()
         {
