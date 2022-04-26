@@ -17,6 +17,7 @@ namespace TakuzuWithSolver.Renderer
         IGameModel model;
 
         Size size;
+        public PebbleButton[,] Pebbles { get; set; }
 
         public void Resize(Size size) { this.size = size; }
         public void SetupModel(IGameModel model)
@@ -26,6 +27,7 @@ namespace TakuzuWithSolver.Renderer
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
+            this.Pebbles =  new PebbleButton[model.Map.GetLength(0), model.Map.GetLength(1)];
 
             if (model != null && size.Width > 50 && size.Height > 50)
             {
@@ -50,6 +52,7 @@ namespace TakuzuWithSolver.Renderer
                                         new Uri(Path.Combine("Images", "TileEmpty.png"), UriKind.RelativeOrAbsolute)),
                                     pebbleState = State.Empty
                                 };
+                                Pebbles[i,j] = pebble;
 
                                 break;
                             case State.Zero:
@@ -60,6 +63,7 @@ namespace TakuzuWithSolver.Renderer
                                         new Uri(Path.Combine("Images", "TileBlue.png"), UriKind.RelativeOrAbsolute)),
                                     pebbleState = State.Zero
                                 };
+                                Pebbles[i, j] = pebble;
 
                                 break;
                             case State.One:
@@ -70,6 +74,7 @@ namespace TakuzuWithSolver.Renderer
                                         new Uri(Path.Combine("Images", "TileGreen.png"), UriKind.RelativeOrAbsolute)),
                                     pebbleState = State.One
                                 };
+                                Pebbles[i, j] = pebble;
 
                                 break;
                         }

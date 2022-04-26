@@ -11,17 +11,22 @@
       Title="FourByFour"
       SizeChanged="Window_SizeChanged" Loaded="Window_Loaded">
 
-    <StackPanel Background="WhiteSmoke">
-        <Grid x:Name="grid" 
-              Background="Wheat" Height="250" Width="250" Margin="50">
-            <renderer:Display x:Name="display" MouseDown="Grid_Click"/>
+    <!--<StackPanel Background="WhiteSmoke">-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="grid" Background="Wheat" Height="250" Width="250" Margin="50" Grid.Row="0">
+            <!--<renderer:Display x:Name="display" />-->
         </Grid>
         <logic:NavigationButton Text="Back" ImageSource="/Images/TileEmpty.png" 
-                               Command="NavigationCommands.BrowseBack" Height="200" Width="200" />
-        
+                               Command="NavigationCommands.BrowseBack" Height="200" Width="200" 
+                                Grid.Row="1"/>
+    </Grid>
 
 
-        <!--<Grid.RowDefinitions>
+    <!--<Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>            
@@ -51,5 +56,5 @@
             <renderer:Display x:Name="display"/>
 
         </Grid>-->
-    </StackPanel>
+    <!--</StackPanel>-->
 </Page>
