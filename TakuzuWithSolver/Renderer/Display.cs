@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TakuzuWithSolver.Logic;
@@ -37,7 +38,7 @@ namespace TakuzuWithSolver.Renderer
                 for (int i = 0; i < model.Map.GetLength(0); i++)
                 {
                     for (int j = 0; j < model.Map.GetLength(1); j++)
-                    {                        
+                    {
                         PebbleButton pebble = new PebbleButton();
                         switch (model.Map[i, j])
                         {
@@ -72,6 +73,9 @@ namespace TakuzuWithSolver.Renderer
 
                                 break;
                         }
+
+                        drawingContext.DrawImage(pebble.ImageSource,
+                                    new Rect(j * rectWidth, i * rectHeight, rectWidth, rectHeight));
 
                     }
                 }

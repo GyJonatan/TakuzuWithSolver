@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
@@ -34,6 +35,6 @@ namespace TakuzuWithSolver.Logic
         public static readonly DependencyProperty pebbleStateProperty =
             DependencyProperty.Register("pebbleState", typeof(State), typeof(PebbleButton), new PropertyMetadata(null));
 
-
+        
     }
 }

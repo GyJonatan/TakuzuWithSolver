@@ -22,16 +22,22 @@ namespace TakuzuWithSolver.Pages
     /// </summary>
     public partial class FourByFour : Page
     {
+        Takuzu logic;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
             display.InvalidateVisual();
         }
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            display.Resize(new Size(grid.ActualWidth, grid.ActualHeight));
+            display.InvalidateVisual();
+        }
 
-        private void Grid_Click(object sender, RoutedEventArgs e)
+        private void Grid_Click(object sender, MouseButtonEventArgs e)
         {
             var ClickedPebble = e.OriginalSource as PebbleButton;
-
+            //képnézegetőshöz hasonló pebble nézegető, amik így már külön-külön érzékelik a klikkeket
             switch (ClickedPebble.pebbleState)
             {
                 case State.Empty:
@@ -58,6 +64,7 @@ namespace TakuzuWithSolver.Pages
                     ClickedPebble.pebbleState = State.Empty;
                     break;
             }
+            display.SetupModel(logic);
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -69,11 +76,10 @@ namespace TakuzuWithSolver.Pages
         {
 
             InitializeComponent();
-            //LabyLogic logic = new LabyLogic();
-            //display.SetupModel(logic);
+            logic = new Takuzu(4);
+            display.SetupModel(logic);
             //controller = new GameController(logic);
         }
-
         
     }
 }
