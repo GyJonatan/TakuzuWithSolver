@@ -5,12 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TakuzuWithSolver.Pages"
       xmlns:renderer="clr-namespace:TakuzuWithSolver.Renderer" 
+      xmlns:logic="clr-namespace:TakuzuWithSolver.Logic"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="800"
       Title="FourByFour">
 
-    <Grid Background="White" Height="800" Width="800">
-        <Grid.RowDefinitions>
+    <StackPanel Background="WhiteSmoke">
+        <Grid x:Name="grid" ButtonBase.Click="Grid_Click" 
+              Background="LightSlateGray" Height="500" Width="500" Margin="50">
+            <renderer:Display x:Name="display"/>
+        </Grid>
+        <logic:NavigationButton Text="Back" ImageSource="/Images/TileEmpty.png" 
+                               Command="NavigationCommands.BrowseBack" Height="200" Width="200" />
+        
+
+
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>            
@@ -22,7 +32,8 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="playground" Grid.Row="1" Grid.Column="1">
             
-            <!--<Grid.RowDefinitions>
+            -->
+        <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -34,9 +45,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>-->
+        <!--
 
             <renderer:Display x:Name="display"/>
 
-        </Grid>
-    </Grid>
+        </Grid>-->
+    </StackPanel>
 </Page>
