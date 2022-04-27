@@ -24,39 +24,35 @@ namespace TakuzuWithSolver.Logic
             {
                 for (int j = 0; j < Pebbles.GetLength(1); j++)
                 {
-                    PebbleButton pebble = new PebbleButton();
+                    PebbleButton pebble = new PebbleButton() { xPos = i, yPos = j};
                     switch (model.Map[i, j])
                     {
                         case State.Empty:
 
-                            pebble = new PebbleButton()
-                            {
-                                ImageSource = new BitmapImage(
-                                    new Uri(Path.Combine("Images", "TileEmpty.png"), UriKind.RelativeOrAbsolute)),
-                                pebbleState = State.Empty
-                            };
+                            pebble.ImageSource = new BitmapImage(
+                                    new Uri(Path.Combine("Images", "TileEmpty.png"), UriKind.RelativeOrAbsolute));
+                            pebble.pebbleState = State.Empty;
+                            
                             Pebbles[i, j] = pebble;
 
                             break;
                         case State.Zero:
 
-                            pebble = new PebbleButton()
-                            {
-                                ImageSource = new BitmapImage(
-                                    new Uri(Path.Combine("Images", "TileBlue.png"), UriKind.RelativeOrAbsolute)),
-                                pebbleState = State.Zero
-                            };
+                            pebble.ImageSource = new BitmapImage(
+                                    new Uri(Path.Combine("Images", "TileBlue.png"), UriKind.RelativeOrAbsolute));
+                            pebble.pebbleState = State.Zero;
+                            pebble.isClickable = false;
+
                             Pebbles[i, j] = pebble;
 
                             break;
                         case State.One:
 
-                            pebble = new PebbleButton()
-                            {
-                                ImageSource = new BitmapImage(
-                                    new Uri(Path.Combine("Images", "TileGreen.png"), UriKind.RelativeOrAbsolute)),
-                                pebbleState = State.One
-                            };
+                            pebble.ImageSource = new BitmapImage(
+                                    new Uri(Path.Combine("Images", "TileGreen.png"), UriKind.RelativeOrAbsolute));
+                            pebble.pebbleState = State.One;
+                            pebble.isClickable = false;
+
                             Pebbles[i, j] = pebble;
 
                             break;
@@ -64,5 +60,13 @@ namespace TakuzuWithSolver.Logic
                 }
             }
         }
+        public void ToggleClickForAllPebbles()
+        {
+            foreach (PebbleButton pebble in Pebbles)
+            {
+                pebble.toggleClick();
+            }
+        }
+        
     }
 }

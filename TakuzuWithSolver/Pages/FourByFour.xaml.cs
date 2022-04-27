@@ -23,6 +23,7 @@ namespace TakuzuWithSolver.Pages
     public partial class FourByFour : Page
     {
         GameMechanic logic;
+        Takuzu takuzu;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -60,36 +61,60 @@ namespace TakuzuWithSolver.Pages
         private void Grid_Click(object sender, RoutedEventArgs e)
         {
             var ClickedPebble = e.OriginalSource as PebbleButton;
-            //képnézegetőshöz hasonló pebble nézegető, amik így már külön-külön érzékelik a klikkeket
+
+            if (!ClickedPebble.isClickable) return;
+
             switch (ClickedPebble.pebbleState)
             {
                 case State.Empty:
                     ClickedPebble.ImageSource =
                         new BitmapImage(new Uri(System.IO.Path.Combine("Images", "TileBlue.png"),
                         UriKind.RelativeOrAbsolute));
-                    
-
                     ClickedPebble.pebbleState = State.Zero;
+
+                    takuzu.Map[ClickedPebble.xPos, ClickedPebble.yPos] = ClickedPebble.pebbleState;
                     break;
 
                 case State.Zero:
                     ClickedPebble.ImageSource =
                         new BitmapImage(new Uri(System.IO.Path.Combine("Images", "TileGreen.png"),
                         UriKind.RelativeOrAbsolute));
-
                     ClickedPebble.pebbleState = State.One;
+
+                    takuzu.Map[ClickedPebble.xPos, ClickedPebble.yPos] = ClickedPebble.pebbleState;
                     break;
 
                 case State.One:
                     ClickedPebble.ImageSource =
                         new BitmapImage(new Uri(System.IO.Path.Combine("Images", "TileEmpty.png"),
                         UriKind.RelativeOrAbsolute));
-
                     ClickedPebble.pebbleState = State.Empty;
+
+                    takuzu.Map[ClickedPebble.xPos, ClickedPebble.yPos] = ClickedPebble.pebbleState;
                     break;
             }
 
             ClickedPebble.Background = new ImageBrush() { ImageSource = ClickedPebble.ImageSource };
+
+            if (takuzu.IsComplete())
+            {
+                if (takuzu.IsSolved())
+                {
+                    MessageBox.Show("gg");
+                    logic.ToggleClickForAllPebbles();
+                }
+                else
+                {
+                    MessageBox.Show("van még mit javítani");
+                    foreach (PebbleButton pebble in logic.Pebbles)
+                    {
+                        if (!takuzu.IsInItsPlace(pebble.xPos,pebble.yPos,pebble.pebbleState))
+                        {
+                            ;
+                        }
+                    }
+                }
+            }
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -101,7 +126,7 @@ namespace TakuzuWithSolver.Pages
         {
 
             InitializeComponent();
-            Takuzu takuzu = new Takuzu(4);
+            takuzu = new Takuzu(4);
             logic = new GameMechanic(takuzu);
 
 

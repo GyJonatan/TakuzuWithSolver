@@ -92,7 +92,7 @@ namespace TakuzuWithSolver.Logic
             else throw new Exception("State can't be retrieved due to unvalid parameters.");
         }
 
-        bool IsComplete()
+        public bool IsComplete()
         {
             foreach (State state in this.Map)
             {
@@ -100,7 +100,7 @@ namespace TakuzuWithSolver.Logic
             }
             return true;
         }
-        bool IsSolved()
+        public bool IsSolved()
         {
             for (int i = 0; i < this.Map.GetLength(0); i++)
             {
@@ -115,6 +115,11 @@ namespace TakuzuWithSolver.Logic
         {
             return x >= 0 && x < this.Dimension &&
                    y >= 0 && y < this.Dimension;
+        }
+
+        public bool IsInItsPlace(int x, int y, State state)
+        {
+            return this.Map[x, y] == state;
         }
     }
 }
